@@ -1,5 +1,6 @@
 package com.example.android.inventory;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +16,8 @@ import com.example.android.inventory.data.DatabaseHelper;
 import com.example.android.inventory.data.ProductContract.ProductEntry;
 
 public class CatalogActivity extends AppCompatActivity {
+
+    private DatabaseHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +38,13 @@ public class CatalogActivity extends AppCompatActivity {
                 startActivity(editIntent);
             }
         });
+
+        mDbHelper = new DatabaseHelper(this);
+
         displayDatabaseInfo();
     }
 
     private void displayDatabaseInfo() {
-        // Access the database
-        DatabaseHelper mDbHelper = new DatabaseHelper(this);
 
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
@@ -57,6 +61,23 @@ public class CatalogActivity extends AppCompatActivity {
         }
     }
 
+    private void insertProduct() {
+        // Gets the database in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        // Create a new ContentValues object where column names are the keys
+        // and product attributes are the values
+        ContentValues values = new ContentValues();
+        values.put(ProductEntry.COLUMN_PRODUCT_NAME, "340ml Coke");
+        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, 7.50);
+        values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 24);
+        values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, "Makro Centurion");
+        values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_EMAIL, "jvh@afrihost.co.za");
+
+        // Insert a new row for the product in the database, returning the ID of that new row.
+        long newRowId = db.insert(ProductEntry.TABLE_NAME, null, values);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_catalog, menu);
@@ -69,7 +90,8 @@ public class CatalogActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "Insert Dummy Data" menu option
             case R.id.action_insert_dummy_data:
-                // Do nothing for now
+                insertProduct();
+                displayDatabaseInfo();
                 return true;
             // Respond to a click on the "Delete All Products" menu option
             case R.id.action_delete_products:
