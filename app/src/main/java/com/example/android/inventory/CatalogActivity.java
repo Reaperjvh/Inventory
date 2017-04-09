@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -53,5 +55,27 @@ public class CatalogActivity extends AppCompatActivity {
         } finally {
             cursor.close();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+            // Respond to a click on the "Insert Dummy Data" menu option
+            case R.id.action_insert_dummy_data:
+                // Do nothing for now
+                return true;
+            // Respond to a click on the "Delete All Products" menu option
+            case R.id.action_delete_products:
+                // Do nothing for now
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
