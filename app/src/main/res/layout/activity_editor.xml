@@ -26,6 +26,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/product_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
@@ -33,6 +34,7 @@
                 android:textAppearance="?android:textAppearanceMedium" />
 
             <EditText
+                android:id="@+id/product_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
@@ -54,6 +56,7 @@
             />
 
         <EditText
+            android:id="@+id/product_quantity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -80,6 +83,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/supplier_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
@@ -87,6 +91,7 @@
                 android:hint="Supplier Name"/>
 
             <EditText
+                android:id="@+id/supplier_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Supplier email"
